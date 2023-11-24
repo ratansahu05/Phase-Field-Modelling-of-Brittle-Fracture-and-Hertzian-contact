@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!DOCTYPE Xdmf SYSTEM "Xdmf.dtd" []>
+<Xdmf Version="3.0" xmlns:xi="http://www.w3.org/2001/XInclude">
+  <Domain>
+    <Grid Name="Grid" GridType="Uniform">
+      <Topology TopologyType="Triangle" NumberOfElements="162" NodesPerElement="3">
+        <DataItem Dimensions="162 3" NumberType="Int" Format="HDF">disp.h5:/Mesh/Grid/topology</DataItem>
+      </Topology>
+      <Geometry GeometryType="XY">
+        <DataItem Dimensions="98 2" Format="HDF">disp.h5:/Mesh/Grid/geometry</DataItem>
+      </Geometry>
+    </Grid>
+    <Grid Name="Displacement" GridType="Collection" CollectionType="Temporal">
+      <Grid Name="Displacement" GridType="Uniform">
+        <xi:include xpointer="xpointer(/Xdmf/Domain/Grid[@GridType='Uniform'][1]/*[self::Topology or self::Geometry])" />
+        <Time Value="0" />
+        <Attribute Name="Displacement" AttributeType="Vector" Center="Node">
+          <DataItem Dimensions="98 3" Format="HDF">disp.h5:/Function/Displacement/0</DataItem>
+        </Attribute>
+      </Grid>
+    </Grid>
+  </Domain>
+</Xdmf>
